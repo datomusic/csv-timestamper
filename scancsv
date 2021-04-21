@@ -10,13 +10,15 @@
 # q quits
 # n next DUO
 # t timestamp
-while getopts o: option
+while getopts "n:o:" option
 do
   case "${option}"
   in
     o) OUTDIR=${OPTARG};;
+    n) BUILDER=${OPTARG};;
   esac
 done
+
 
 # if outdir does not exist, exit with a message
 if [[ ! -d "$OUTDIR" ]]; then
@@ -25,14 +27,22 @@ if [[ ! -d "$OUTDIR" ]]; then
 fi
 cd "$OUTDIR"
 
+echo "What is your name?"
+read name
+BUILDER="$name"
+
 while :
 do
-  echo "Enter serial number: press q to quit, press t for timestamp"
+  echo
+  echo "Name: $BUILDER"
+  echo "Enter serial number: press q to quit"
   read serial 
-  if [ "$serial" == "q" ]; then
-    break
-  fi
-  
+  case $serial in
+    'q') exit 0;;
+    ''|*[!0-9]*) echo "not a number"; continue;;
+    *) echo "Loggin steps for serial no $serial" ;;
+  esac
+
   date "+%Y-%m-%d %H:%M:%S,start" >> "$serial".csv
 
   while :
@@ -41,6 +51,7 @@ do
     if [ "$REPLY" == "q" ]; then
       exit 0
     elif [ "$REPLY" == "n" ]; then
+      echo
       break
     elif [ "$REPLY" == "t" ]; then
       date "+%Y-%m-%d %H:%M:%S" >> "$serial".csv
