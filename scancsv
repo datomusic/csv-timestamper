@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Reads lines, prepends a timestamp and appends an optional delimiter
+#
+#
+#
+# Start a new file every serial number, so as soon as we encounter a serial number,
+# store it, and use it as the output filename.
+# Any scanned data is appended to that file
+# q quits
+# n next DUO
+# t timestamp
+while getopts o: option
+do
+  case "${option}"
+  in
+    o) OUTDIR=${OPTARG};;
+  esac
+done
+
+# if outdir does not exist, exit with a message
+if [[ ! -d "$OUTDIR" ]]; then
+  echo "Output directory specified with -o does not exist. Exiting."
+  exit 2
+fi
+cd "$OUTDIR"
+
+while :
+do
+  echo "Enter serial number: press q to quit, press t for timestamp"
+  read serial 
+  if [ "$serial" == "q" ]; then
+    break
+  fi
+  
+  date "+%Y-%m-%d %H:%M:%S,start" >> "$serial".csv
+
+  while :
+  do
+    read
+    if [ "$REPLY" == "q" ]; then
+      exit 0
+    elif [ "$REPLY" == "n" ]; then
+      break
+    elif [ "$REPLY" == "t" ]; then
+      date "+%Y-%m-%d %H:%M:%S" >> "$serial".csv
+    else
+      date "+%Y-%m-%d %H:%M:%S,$REPLY" >> "$serial".csv
+    fi
+  done
+done
