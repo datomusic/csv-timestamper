@@ -33,17 +33,17 @@ BUILDER="$name"
 
 while :
 do
-  echo
   echo "Name: $BUILDER"
   echo "Enter serial number: press q to quit"
-  read serial 
-  case $serial in
+  read SERIAL 
+  case $SERIAL in
     'q') exit 0;;
     ''|*[!0-9]*) echo "not a number"; continue;;
-    *) echo "Loggin steps for serial no $serial" ;;
+    *) echo "Logging steps for serial no $SERIAL" ;;
   esac
 
-  date "+%Y-%m-%d %H:%M:%S,start" >> "$serial".csv
+  date "+%Y-%m-%d %H:%M:%S,$BUILDER" >> "$SERIAL".csv
+  date "+%Y-%m-%d %H:%M:%S,start" >> "$SERIAL".csv
 
   while :
   do
@@ -51,12 +51,13 @@ do
     if [ "$REPLY" == "q" ]; then
       exit 0
     elif [ "$REPLY" == "n" ]; then
+      echo "$SERIAL is done!"
       echo
       break
     elif [ "$REPLY" == "t" ]; then
-      date "+%Y-%m-%d %H:%M:%S" >> "$serial".csv
+      date "+%Y-%m-%d %H:%M:%S" >> "$SERIAL".csv
     else
-      date "+%Y-%m-%d %H:%M:%S,$REPLY" >> "$serial".csv
+      date "+%Y-%m-%d %H:%M:%S,$REPLY" >> "$SERIAL".csv
     fi
   done
 done
