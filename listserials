@@ -1,11 +1,12 @@
 #!/bin/bash
 ls *.csv | sed 's/.csv//'
 
-echo "Do you wish to move these files to the entered directory?"
-select yn in "Yes" "No"; do
+while true; do
+    read -p "Do you wish to move these files to the entered directory?" yn
     case $yn in
-        Yes ) mv *.csv entered/; break;;
-        No ) exit;;
+        [Yy]* ) mv *.csv entered/; break;; 
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
     esac
 done
 

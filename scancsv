@@ -10,6 +10,9 @@
 # q quits
 # n next DUO
 # t timestamp
+#
+# Version 1.0.0-beta1
+#
 while getopts "n:o:" option
 do
   case "${option}"
@@ -42,8 +45,8 @@ do
     *) echo "Logging steps for serial no $SERIAL" ;;
   esac
 
-  date "+%Y-%m-%d %H:%M:%S,$BUILDER" >> "$SERIAL".csv
-  date "+%Y-%m-%d %H:%M:%S,start" >> "$SERIAL".csv
+  date "+%Y-%m-%d %H:%M:%S,$BUILDER" >> "$SERIAL".cs~
+  date "+%Y-%m-%d %H:%M:%S,start" >> "$SERIAL".cs~
 
   while :
   do
@@ -52,12 +55,13 @@ do
       exit 0
     elif [ "$REPLY" == "n" ]; then
       echo "$SERIAL is done!"
+      mv "$SERIAL".cs~ "$SERIAL".csv
       echo
       break
     elif [ "$REPLY" == "t" ]; then
-      date "+%Y-%m-%d %H:%M:%S" >> "$SERIAL".csv
+      date "+%Y-%m-%d %H:%M:%S" >> "$SERIAL".cs~
     else
-      date "+%Y-%m-%d %H:%M:%S,$REPLY" >> "$SERIAL".csv
+      date "+%Y-%m-%d %H:%M:%S,$REPLY" >> "$SERIAL".cs~
     fi
   done
 done
