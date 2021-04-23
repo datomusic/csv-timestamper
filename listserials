@@ -1,0 +1,11 @@
+#!/bin/bash
+ls *.csv | sed 's/.csv//'
+
+echo "Do you wish to move these files to the entered directory?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) mv *.csv entered/; break;;
+        No ) exit;;
+    esac
+done
+
