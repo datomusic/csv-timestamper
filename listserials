@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Listserials 0.9"
 echo "The following serial number csv's are present"
 ls *.csv | sed 's/.csv//'
 echo
