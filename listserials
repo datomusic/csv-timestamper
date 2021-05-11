@@ -1,10 +1,14 @@
 #!/bin/bash
-echo "Listserials 0.9"
+echo "Listserials 0.9.1"
+
+shopt -s nullglob 
+csvfiles=(*.csv)
+
 echo "The following serial number csv's are present"
 ls *.csv | sed 's/.csv//'
 echo
-echo "Total number of files:"
-ls -1q *.csv | wc -l
+echo "Total number of files: ${#csvfiles[@]}"
+#ls -1q *.csv | wc -l
 
 echo
 
