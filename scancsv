@@ -10,9 +10,10 @@
 # q quits
 # n next DUO
 # t timestamp
-#
-# Version 1.0.0-beta1
-#
+
+
+VERSION="1.0.0-beta1" 
+
 while getopts "n:o:" option
 do
   case "${option}"
@@ -21,6 +22,9 @@ do
     n) BUILDER=${OPTARG};;
   esac
 done
+
+echo "Scancsv version $VERSION"
+echo
 
 
 # if outdir does not exist, exit with a message

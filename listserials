@@ -1,8 +1,14 @@
 #!/bin/bash
+echo "The following serial number csv's are present"
 ls *.csv | sed 's/.csv//'
+echo
+echo "Total number of files:"
+ls -1q *.csv | wc -l
+
+echo
 
 while true; do
-    read -p "Do you wish to move these files to the entered directory?" yn
+    read -p "Do you wish to move these files to the entered directory? y/n" yn
     case $yn in
         [Yy]* ) mv *.csv entered/; break;; 
         [Nn]* ) exit;;
