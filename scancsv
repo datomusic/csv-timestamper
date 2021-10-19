@@ -12,7 +12,7 @@
 # t timestamp
 
 
-VERSION="1.0.0-beta1" 
+VERSION="1.0.0-beta2" 
 
 while getopts "n:o:" option
 do
@@ -46,6 +46,7 @@ do
   case $SERIAL in
     'q') exit 0;;
     ''|*[!0-9]*) echo "not a number"; continue;;
+    '8719326129501') echo "that is the DUO's barcode"; continue;;
     *) echo "Logging steps for serial no $SERIAL" ;;
   esac
 

@@ -2,7 +2,7 @@
 echo "Listserials 0.9.1"
 
 shopt -s nullglob 
-csvfiles=(*.csv)
+csvfiles=([0-9].csv)
 
 echo "The following serial number csv's are present"
 ls *.csv | sed 's/.csv//'
